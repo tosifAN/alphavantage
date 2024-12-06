@@ -19,7 +19,7 @@ Add this to your `claude_desktop_config.json`:
       "command": "uv",
       "args": [
         "--directory",
-        "/Users/medusa/code/alphavantage",
+        "<DIRECTORY>/alphavantage",
         "run",
         "alphavantage"
       ],
