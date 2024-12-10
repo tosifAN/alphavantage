@@ -1,6 +1,6 @@
 # Alphavantage MCP Server
 
-An MCP server for the stock market data API, Alphavantage API.
+A MCP server for the stock market data API, Alphavantage API.
 
 ## Configuration
 
