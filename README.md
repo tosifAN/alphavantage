@@ -1,5 +1,7 @@
 # Alphavantage MCP Server
 
+[![smithery badge](https://smithery.ai/badge/alphavantage)](https://smithery.ai/server/alphavantage)
+
 A MCP server for the stock market data API, Alphavantage API.
 
 ## Configuration
@@ -30,3 +32,4 @@ Add this to your `claude_desktop_config.json`:
   }
 }
 ```
+
