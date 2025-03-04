@@ -6,7 +6,7 @@ import mcp.types as types
 from mcp.server import NotificationOptions, Server
 from mcp.server.models import InitializationOptions
 
-from src.alphavantage_mcp_server.api import (
+from alphavantage_mcp_server.api import (
     fetch_quote,
     fetch_intraday,
     fetch_time_series_daily,
@@ -116,6 +116,7 @@ from src.alphavantage_mcp_server.api import (
     fetch_ht_dcperiod,
     fetch_ht_dcphase,
     fetch_ht_phasor,
+    fetch_vwap,
 )
 
 

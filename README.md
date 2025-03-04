@@ -11,6 +11,12 @@ A MCP server for the stock market data API, Alphavantage API.
 2. Add the API key to your environment variables as `ALPHAVANTAGE_API_KEY`
 
 
+## Clone the project
+
+```bash
+git clone https://github.com/calvernaz/alphavantage.git
+```
+
 ### Usage with Claude Desktop
 Add this to your `claude_desktop_config.json`:
 
@@ -21,7 +27,7 @@ Add this to your `claude_desktop_config.json`:
       "command": "uv",
       "args": [
         "--directory",
-        "<DIRECTORY>/alphavantage",
+        "<DIRECTORY-OF-CLONED-PROJECT>/alphavantage",
         "run",
         "alphavantage"
       ],

@@ -21,5 +21,10 @@ build-backend = "hatchling.build"
 [tool.hatch.build.targets.wheel]
 packages = ["src/alphavantage_mcp_server"]
 
+[dependency-groups]
+dev = [
+    "ruff>=0.9.9",
+]
+
 [project.scripts]
-alphavantage = "alphavantage_mcp_sever:main"
+alphavantage = "alphavantage_mcp_server:main"
