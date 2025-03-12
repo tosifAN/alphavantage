@@ -20,6 +20,8 @@ git clone https://github.com/calvernaz/alphavantage.git
 ### Usage with Claude Desktop
 Add this to your `claude_desktop_config.json`:
 
+**NOTE** Make sure you replace the `<DIRECTORY-OF-CLONED-PROJECT>` with the directory of the cloned project.
+
 ```
 {
   "mcpServers": {
