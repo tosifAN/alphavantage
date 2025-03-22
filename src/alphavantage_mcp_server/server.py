@@ -239,6 +239,37 @@ class AlphavantageTools(str, Enum):
 server = Server("alphavantage")
 
 
+@server.list_prompts()
+async def list_prompts() -> list[types.Prompt]:
+    return list[
+        types.Prompt(
+            name=AlphavantageTools.STOCK_QUOTE.value,
+            description="Fetch a stock quote",
+            arguments=[
+                types.PromptArgument(
+                    name="symbol", description="Stock symbol", required=True
+                )
+            ],
+        )
+    ]
+
+
+@server.get_prompt()
+async def get_prompt(
+    name: str, arguments: dict[str, str] | None = None
+) -> types.GetPromptResult:
+    if name == AlphavantageTools.STOCK_QUOTE.value:
+        symbol = arguments.get("symbol") if arguments else ""
+        return types.GetPromptResult(
+            role="user",
+            content=types.TextContent(
+                type="text", text=f"Fetch the stock quote for the symbol {symbol}"
+            ),
+        )
+
+    raise ValueError("Prompt implementation not found")
+
+
 @server.list_tools()
 async def handle_list_tools() -> list[types.Tool]:
     """
@@ -3190,7 +3221,6 @@ async def handle_call_tool(
         raise ValueError(f"Error processing alphavantage query: {str(e)}") from e
 
 
-
 def get_version():
     with open("pyproject.toml", "r") as f:
         pyproject = toml.load(f)
@@ -3198,7 +3228,6 @@ def get_version():
 
 
 async def main():
-    # Run the server using stdin/stdout streams
     async with mcp.server.stdio.stdio_server() as (read_stream, write_stream):
         await server.run(
             read_stream,
