@@ -1483,6 +1483,258 @@ async def get_prompt(
                 )
             ],
         )
+    if name == AlphavantageTools.TIME_SERIES_INTRADAY.value:
+        symbol = arguments.get("symbol") if arguments else ""
+        interval = arguments.get("interval") if arguments else ""
+        return types.GetPromptResult(
+            messages=[
+                types.PromptMessage(
+                    role="user",
+                    content=types.TextContent(
+                        type="text",
+                        text=f"Fetch the time series intraday for the symbol {symbol} with interval {interval}",
+                    ),
+                )
+            ],
+        )
+    if name == AlphavantageTools.TIME_SERIES_DAILY.value:
+        symbol = arguments.get("symbol") if arguments else ""
+        return types.GetPromptResult(
+            messages=[
+                types.PromptMessage(
+                    role="user",
+                    content=types.TextContent(
+                        type="text",
+                        text=f"Fetch the time series daily for the symbol {symbol}",
+                    ),
+                )
+            ],
+        )
+    if name == AlphavantageTools.TIME_SERIES_DAILY_ADJUSTED.value:
+        symbol = arguments.get("symbol") if arguments else ""
+        return types.GetPromptResult(
+            messages=[
+                types.PromptMessage(
+                    role="user",
+                    content=types.TextContent(
+                        type="text",
+                        text=f"Fetch the time series daily adjusted for the symbol {symbol}",
+                    ),
+                )
+            ],
+        )
+    if name == AlphavantageTools.TIME_SERIES_WEEKLY.value:
+        symbol = arguments.get("symbol") if arguments else ""
+        return types.GetPromptResult(
+            messages=[
+                types.PromptMessage(
+                    role="user",
+                    content=types.TextContent(
+                        type="text",
+                        text=f"Fetch the time series weekly for the symbol {symbol}",
+                    ),
+                )
+            ],
+        )
+    if name == AlphavantageTools.TIME_SERIES_WEEKLY_ADJUSTED.value:
+        symbol = arguments.get("symbol") if arguments else ""
+        return types.GetPromptResult(
+            messages=[
+                types.PromptMessage(
+                    role="user",
+                    content=types.TextContent(
+                        type="text",
+                        text=f"Fetch the time series weekly adjusted for the symbol {symbol}",
+                    ),
+                )
+            ],
+        )
+    if name == AlphavantageTools.TIME_SERIES_MONTHLY.value:
+        symbol = arguments.get("symbol") if arguments else ""
+        return types.GetPromptResult(
+            messages=[
+                types.PromptMessage(
+                    role="user",
+                    content=types.TextContent(
+                        type="text",
+                        text=f"Fetch the time series monthly for the symbol {symbol}",
+                    ),
+                )
+            ],
+        )
+    if name == AlphavantageTools.TIME_SERIES_MONTHLY_ADJUSTED.value:
+        symbol = arguments.get("symbol") if arguments else ""
+        return types.GetPromptResult(
+            messages=[
+                types.PromptMessage(
+                    role="user",
+                    content=types.TextContent(
+                        type="text",
+                        text=f"Fetch the time series monthly adjusted for the symbol {symbol}",
+                    ),
+                )
+            ],
+        )
+    if name == AlphavantageTools.REALTIME_BULK_QUOTES.value:
+        symbol = arguments.get("symbol") if arguments else ""
+        return types.GetPromptResult(
+            messages=[
+                types.PromptMessage(
+                    role="user",
+                    content=types.TextContent(
+                        type="text",
+                        text=f"Fetch real time bulk quotes for the symbols {symbol}",
+                    ),
+                )
+            ],
+        )
+    if name == AlphavantageTools.SYMBOL_SEARCH.value:
+        keywords = arguments.get("keywords") if arguments else ""
+        return types.GetPromptResult(
+            messages=[
+                types.PromptMessage(
+                    role="user",
+                    content=types.TextContent(
+                        type="text",
+                        text=f"Search for symbols with keywords {keywords}",
+                    ),
+                )
+            ],
+        )
+    if name == AlphavantageTools.MARKET_STATUS.value:
+        return types.GetPromptResult(
+            messages=[
+                types.PromptMessage(
+                    role="user",
+                    content=types.TextContent(
+                        type="text", text="Fetch the market status"
+                    ),
+                )
+            ],
+        )
+    if name == AlphavantageTools.REALTIME_OPTIONS.value:
+        symbol = arguments.get("symbol") if arguments else ""
+        contract = arguments.get("contract") if arguments else ""
+        return types.GetPromptResult(
+            messages=[
+                types.PromptMessage(
+                    role="user",
+                    content=types.TextContent(
+                        type="text",
+                        text=f"Fetch real time options for the symbol {symbol} with contract {contract}",
+                    ),
+                )
+            ],
+        )
+    if name == AlphavantageTools.HISTORICAL_OPTIONS.value:
+        symbol = arguments.get("symbol") if arguments else ""
+        contract = arguments.get("contract") if arguments else ""
+        return types.GetPromptResult(
+            messages=[
+                types.PromptMessage(
+                    role="user",
+                    content=types.TextContent(
+                        type="text",
+                        text=f"Fetch historical options for the symbol {symbol} with contract {contract}",
+                    ),
+                )
+            ],
+        )
+    if name == AlphavantageTools.NEWS_SENTIMENT.value:
+        tickers = arguments.get("tickers") if arguments else ""
+        topics = arguments.get("topics") if arguments else ""
+        return types.GetPromptResult(
+            messages=[
+                types.PromptMessage(
+                    role="user",
+                    content=types.TextContent(
+                        type="text",
+                        text=f"Fetch news sentiment for the tickers {tickers} with topics {topics}",
+                    ),
+                )
+            ],
+        )
+    if name == AlphavantageTools.TOP_GAINERS_LOSERS.value:
+        return types.GetPromptResult(
+            messages=[
+                types.PromptMessage(
+                    role="user",
+                    content=types.TextContent(
+                        type="text", text="Fetch the top gainers and losers"
+                    ),
+                )
+            ],
+        )
+    if name == AlphavantageTools.INSIDER_TRANSACTIONS.value:
+        symbol = arguments.get("symbol") if arguments else ""
+        return types.GetPromptResult(
+            messages=[
+                types.PromptMessage(
+                    role="user",
+                    content=types.TextContent(
+                        type="text",
+                        text=f"Fetch insider transactions for the symbol {symbol}",
+                    ),
+                )
+            ],
+        )
+    if name == AlphavantageTools.ANALYTICS_FIXED_WINDOW.value:
+        symbol = arguments.get("symbol") if arguments else ""
+        window = arguments.get("window") if arguments else ""
+        return types.GetPromptResult(
+            messages=[
+                types.PromptMessage(
+                    role="user",
+                    content=types.TextContent(
+                        type="text",
+                        text=f"Fetch analytics with fixed window for the symbol {symbol} with window {window}",
+                    ),
+                )
+            ],
+        )
+    if name == AlphavantageTools.ANALYTICS_SLIDING_WINDOW.value:
+        symbol = arguments.get("symbol") if arguments else ""
+        window = arguments.get("window") if arguments else ""
+        return types.GetPromptResult(
+            messages=[
+                types.PromptMessage(
+                    role="user",
+                    content=types.TextContent(
+                        type="text",
+                        text=f"Fetch analytics with sliding window for the symbol {symbol} with window {window}",
+                    ),
+                )
+            ],
+        )
+    if name == AlphavantageTools.COMPANY_OVERVIEW.value:
+        symbol = arguments.get("symbol") if arguments else ""
+        datatype = arguments.get("datatype") if arguments else ""
+        return types.GetPromptResult(
+            messages=[
+                types.PromptMessage(
+                    role="user",
+                    content=types.TextContent(
+                        type="text",
+                        text=f"Fetch the company overview for the symbol {symbol} with datatype {datatype}",
+                    ),
+                )
+            ],
+        )
+    if name == AlphavantageTools.ETF_PROFILE.value:
+        symbol = arguments.get("symbol") if arguments else ""
+        datatype = arguments.get("datatype") if arguments else ""
+        return types.GetPromptResult(
+            messages=[
+                types.PromptMessage(
+                    role="user",
+                    content=types.TextContent(
+                        type="text",
+                        text=f"Fetch the ETF profile for the symbol {symbol} with datatype {datatype}",
+                    ),
+                )
+            ],
+        )
+
 
     raise ValueError("Prompt implementation not found")
 
