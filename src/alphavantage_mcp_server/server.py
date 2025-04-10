@@ -1826,7 +1826,6 @@ async def get_prompt(
         )
     if name == AlphavantageTools.EARNINGS_CALENDAR.value:
         symbol = arguments.get("symbol") if arguments else ""
-        horizon = arguments.get("horizon") if arguments else ""
         return types.GetPromptResult(
             messages=[
                 types.PromptMessage(
@@ -1845,7 +1844,7 @@ async def get_prompt(
                     role="user",
                     content=types.TextContent(
                         type="text",
-                        text=f"Fetch list of IPOs expected in the next 3 months",
+                        text="Fetch list of IPOs expected in the next 3 months",
                     ),
                 )
             ],
