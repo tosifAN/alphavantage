@@ -117,7 +117,7 @@ from alphavantage_mcp_server.api import (
     fetch_ht_dcperiod,
     fetch_ht_dcphase,
     fetch_ht_phasor,
-    fetch_vwap,
+    fetch_vwap, fetch_earnings,
 )
 
 
@@ -1734,6 +1734,193 @@ async def get_prompt(
                 )
             ],
         )
+    if name == AlphavantageTools.COMPANY_DIVIDENDS.value:
+        symbol = arguments.get("symbol") if arguments else ""
+        return types.GetPromptResult(
+            messages=[
+                types.PromptMessage(
+                    role="user",
+                    content=types.TextContent(
+                        type="text",
+                        text=f"Fetch the company dividends for the symbol {symbol}",
+                    ),
+                )
+            ],
+        )
+    if name == AlphavantageTools.COMPANY_SPLITS.value:
+        symbol = arguments.get("symbol") if arguments else ""
+        return types.GetPromptResult(
+            messages=[
+                types.PromptMessage(
+                    role="user",
+                    content=types.TextContent(
+                        type="text",
+                        text=f"Fetch the company split events for the symbol {symbol}",
+                    ),
+                )
+            ],
+        )
+    if name == AlphavantageTools.INCOME_STATEMENT.value:
+        symbol = arguments.get("symbol") if arguments else ""
+        return types.GetPromptResult(
+            messages=[
+                types.PromptMessage(
+                    role="user",
+                    content=types.TextContent(
+                        type="text",
+                        text=f"Fetch the annual and quarterly income statements for the company {symbol}",
+                    ),
+                )
+            ],
+        )
+    if name == AlphavantageTools.BALANCE_SHEET.value:
+        symbol = arguments.get("symbol") if arguments else ""
+        return types.GetPromptResult(
+            messages=[
+                types.PromptMessage(
+                    role="user",
+                    content=types.TextContent(
+                        type="text",
+                        text=f"Fetch the annual and quarterly balance sheet for the company {symbol}",
+                    ),
+                )
+            ],
+        )
+    if name == AlphavantageTools.CASH_FLOW.value:
+        symbol = arguments.get("symbol") if arguments else ""
+        return types.GetPromptResult(
+            messages=[
+                types.PromptMessage(
+                    role="user",
+                    content=types.TextContent(
+                        type="text",
+                        text=f"Fetch the annual and quarterly cash flow for the company {symbol}",
+                    ),
+                )
+            ],
+        )
+    if name == AlphavantageTools.COMPANY_EARNINGS.value:
+        symbol = arguments.get("symbol") if arguments else ""
+        return types.GetPromptResult(
+            messages=[
+                types.PromptMessage(
+                    role="user",
+                    content=types.TextContent(
+                        type="text",
+                        text=f"Fetch the annual and quarterly earnings (EPS) for the company {symbol}",
+                    ),
+                )
+            ],
+        )
+    if name == AlphavantageTools.LISTING_STATUS.value:
+        return types.GetPromptResult(
+            messages=[
+                types.PromptMessage(
+                    role="user",
+                    content=types.TextContent(
+                        type="text",
+                        text="Fetch the list of active or delisted US stocks and ETFs",
+                    ),
+                )
+            ]
+        )
+    if name == AlphavantageTools.EARNINGS_CALENDAR.value:
+        symbol = arguments.get("symbol") if arguments else ""
+        horizon = arguments.get("horizon") if arguments else ""
+        return types.GetPromptResult(
+            messages=[
+                types.PromptMessage(
+                    role="user",
+                    content=types.TextContent(
+                        type="text",
+                        text=f"Fetch the earnings expected in the next 3, 6, or 12 months for the {symbol}",
+                    ),
+                )
+            ],
+        )
+    if name == AlphavantageTools.IPO_CALENDAR.value:
+        return types.GetPromptResult(
+            messages=[
+                types.PromptMessage(
+                    role="user",
+                    content=types.TextContent(
+                        type="text",
+                        text=f"Fetch list of IPOs expected in the next 3 months",
+                    ),
+                )
+            ],
+        )
+    if name == AlphavantageTools.EXCHANGE_RATE.value:
+        from_currency = arguments.get("from_currency") if arguments else ""
+        to_currency = arguments.get("to_currency") if arguments else ""
+        return types.GetPromptResult(
+            messages=[
+                types.PromptMessage(
+                    role="user",
+                    content=types.TextContent(
+                        type="text",
+                        text=f"Fetch the exchange rate from {from_currency} to {to_currency}",
+                    ),
+                )
+            ],
+        )
+    if name == AlphavantageTools.FX_INTRADAY.value:
+        from_symbol = arguments.get("from_symbol") if arguments else ""
+        to_symbol = arguments.get("to_symbol") if arguments else ""
+        interval = arguments.get("interval") if arguments else ""
+        return types.GetPromptResult(
+            messages=[
+                types.PromptMessage(
+                    role="user",
+                    content=types.TextContent(
+                        type="text",
+                        text=f"Fetch the intraday exchange rate from {from_symbol} to {to_symbol} with interval {interval}",
+                    ),
+                )
+            ],
+        )
+    if name == AlphavantageTools.FX_DAILY.value:
+        from_symbol = arguments.get("from_symbol") if arguments else ""
+        to_symbol = arguments.get("to_symbol") if arguments else ""
+        return types.GetPromptResult(
+            messages=[
+                types.PromptMessage(
+                    role="user",
+                    content=types.TextContent(
+                        type="text",
+                        text=f"Fetch the daily exchange rate from {from_symbol} to {to_symbol}",
+                    ),
+                )
+            ],
+        )
+    if name == AlphavantageTools.FX_WEEKLY.value:
+        from_symbol = arguments.get("from_symbol") if arguments else ""
+        to_symbol = arguments.get("to_symbol") if arguments else ""
+        return types.GetPromptResult(
+            messages=[
+                types.PromptMessage(
+                    role="user",
+                    content=types.TextContent(
+                        type="text",
+                        text=f"Fetch the weekly exchange rate from {from_symbol} to {to_symbol}",
+                    ),
+                )
+            ],
+        )
+    if name == AlphavantageTools.FX_MONTHLY.value:
+        from_symbol = arguments.get("from_symbol") if arguments else ""
+        to_symbol = arguments.get("to_symbol") if arguments else ""
+        return types.GetPromptResult(
+            messages=[
+                types.PromptMessage(
+                    role="user",
+                    content=types.TextContent(
+                        type="text",
+                        text=f"Fetch the monthly exchange rate from {from_symbol} to {to_symbol}",
+                    ),
+                )
+            ],
+        )
 
 
     raise ValueError("Prompt implementation not found")
@@ -2045,6 +2232,17 @@ async def handle_list_tools() -> list[types.Tool]:
                 "type": "object",
                 "properties": {
                     "symbol": {"type": "string"},
+                },
+                "required": ["symbol"],
+            },
+        ),
+        types.Tool(
+            name=AlphavantageTools.COMPANY_EARNINGS.value,
+            description="Fetch company earnings",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "symbol": {"type": "string"}
                 },
                 "required": ["symbol"],
             },
@@ -3532,11 +3730,16 @@ async def handle_call_tool(
 
                 result = await fetch_cash_flow(symbol)
 
-            case AlphavantageTools.LISTING_STATUS.value:
+            case AlphavantageTools.COMPANY_EARNINGS.value:
                 symbol = arguments.get("symbol")
+                if not symbol:
+                    raise ValueError("Missing required argument: symbol")
+                result = await fetch_earnings(symbol)
+
+            case AlphavantageTools.LISTING_STATUS.value:
                 date = arguments.get("date")
                 state = arguments.get("state")
-                result = await fetch_listing_status(symbol, date, state)
+                result = await fetch_listing_status(date, state)
 
             case AlphavantageTools.EARNINGS_CALENDAR.value:
                 symbol = arguments.get("symbol")

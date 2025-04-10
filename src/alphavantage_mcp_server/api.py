@@ -655,12 +655,11 @@ async def fetch_earnings(symbol: str) -> dict[str, str]:
 
 
 async def fetch_listing_status(
-    symbol: str, date: str = None, state: str = "active"
+        date: str = None, state: str = "active"
 ) -> dict[str, str]:
     """
     Fetch company listing status data from the Alpha Vantage API.
 
-    :argument: symbol (str): The stock symbol to fetch.
     :argument: date (str): The date of the listing status (default: None).
     :argument: state (str): The listing status state (default: "active").
 
@@ -669,7 +668,6 @@ async def fetch_listing_status(
 
     https_params = {
         "function": "LISTING_STATUS",
-        "symbol": symbol,
         "date": date,
         "state": state,
         "apikey": API_KEY,
