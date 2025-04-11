@@ -1920,6 +1920,116 @@ async def get_prompt(
                 )
             ],
         )
+    if name == AlphavantageTools.CRYPTO_INTRADAY.value:
+        symbol = arguments.get("symbol") if arguments else ""
+        market = arguments.get("market") if arguments else ""
+        interval = arguments.get("interval") if arguments else ""
+        
+        return types.GetPromptResult(
+            messages=[
+                types.PromptMessage(
+                    role="user",
+                    content=types.TextContent(
+                        type="text",
+                        text=f"Fetch the intraday crypto data for {symbol} in {market} with interval {interval}",
+                    ),
+                )
+            ],
+        )
+    if name == AlphavantageTools.DIGITAL_CURRENCY_DAILY.value:
+        symbol = arguments.get("symbol") if arguments else ""
+        market = arguments.get("market") if arguments else ""
+
+        return types.GetPromptResult(
+            messages=[
+                types.PromptMessage(
+                    role="user",
+                    content=types.TextContent(
+                        type="text",
+                        text=f"Fetch the daily historical time series for a digital currency (e.g., {symbol}) traded on a specific market (e.g., {market})",
+                    ),
+                )
+            ],
+        )
+    if name == AlphavantageTools.DIGITAL_CURRENCY_WEEKLY.value:
+        symbol = arguments.get("symbol") if arguments else ""
+        market = arguments.get("market") if arguments else ""
+
+        return types.GetPromptResult(
+            messages=[
+                types.PromptMessage(
+                    role="user",
+                    content=types.TextContent(
+                        type="text",
+                        text=f"Fetch the weekly historical time series for a digital currency (e.g., {symbol}) traded on a specific market, e.g., {market}",
+                    ),
+                )
+            ],
+        )
+    if name == AlphavantageTools.DIGITAL_CURRENCY_MONTHLY.value:
+        symbol = arguments.get("symbol") if arguments else ""
+        market = arguments.get("market") if arguments else ""
+
+        return types.GetPromptResult(
+            messages=[
+                types.PromptMessage(
+                    role="user",
+                    content=types.TextContent(
+                        type="text",
+                        text=f"Fetch the monthly historical time series for a digital currency (e.g., {symbol}) traded on a specific market, e.g., {market}",
+                    ),
+                )
+            ],
+        )
+    if name == AlphavantageTools.WTI_CRUDE_OIL.value:
+        function = arguments.get("function") if arguments else "WTI"
+        interval = arguments.get("interval") if arguments else "monthly"
+        datatype = arguments.get("datatype") if arguments else "json"
+
+        return types.GetPromptResult(
+            messages=[
+                types.PromptMessage(
+                    role="user",
+                    content=types.TextContent(
+                        type="text",
+                        text=f"Fetch the West Texas Intermediate ({function}) crude oil prices in daily, weekly, and monthly horizons",
+                    ),
+                )
+            ],
+        )
+
+    if name == AlphavantageTools.BRENT_CRUDE_OIL.value:
+        function = arguments.get("function") if arguments else "Brent"
+        interval = arguments.get("interval") if arguments else "monthly"
+        datatype = arguments.get("datatype") if arguments else "json"
+
+        return types.GetPromptResult(
+            messages=[
+                types.PromptMessage(
+                    role="user",
+                    content=types.TextContent(
+                        type="text",
+                        text=f"Fetch the {function} crude oil prices in daily, weekly, and monthly horizons",
+                    ),
+                )
+            ],
+        )
+    if name == AlphavantageTools.NATURAL_GAS.value:
+        function = arguments.get("function") if arguments else "NATURAL_GAS"
+        interval = arguments.get("interval") if arguments else "monthly"
+        datatype = arguments.get("datatype") if arguments else "json"
+
+        return types.GetPromptResult(
+            messages=[
+                types.PromptMessage(
+                    role="user",
+                    content=types.TextContent(
+                        type="text",
+                        text="Fetch the Henry Hub natural gas spot prices in daily, weekly, and monthly horizons.",
+                    )
+                )
+            ],
+        )
 
 
     raise ValueError("Prompt implementation not found")
