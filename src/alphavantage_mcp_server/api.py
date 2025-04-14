@@ -653,6 +653,26 @@ async def fetch_earnings(symbol: str) -> dict[str, str]:
         response.raise_for_status()
         return response.json()
 
+async def fetch_earnings_call_transcript(symbol: str, quarter: str) -> dict[str, str]:
+    """
+    This API returns the earnings call transcript for a given company in a specific quarter, covering over 15 years
+    of history and enriched with LLM-based sentiment signals.
+
+    :param symbol: The stock symbol to fetch.
+    :param quarter: The quarter for which to fetch the earnings call transcript in the format YYYYQM.
+
+    :return: The earnings call transcript data.
+    """
+    https_params = {
+        "function": "EARNINGS_CALL_TRANSCRIPT",
+        "symbol": symbol,
+        "quarter": quarter,
+        "apikey": API_KEY,
+    }
+    async with httpx.AsyncClient() as client:
+        response = await client.get(API_BASE_URL, params=https_params)
+        response.raise_for_status()
+        return response.json()
 
 async def fetch_listing_status(
         date: str = None, state: str = "active"

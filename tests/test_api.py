@@ -1,11 +1,35 @@
 import csv
+import json
 import os
 from io import StringIO
 
 import pytest
 
-from alphavantage_mcp_server.api import fetch_earnings_calendar
+from alphavantage_mcp_server.api import fetch_earnings_calendar, fetch_earnings_call_transcript
 
+
+@pytest.mark.asyncio
+async def test_fetch_earnings_call_transcript():
+    """Test fetching earnings call transcript with real API call."""
+    result = await fetch_earnings_call_transcript(symbol="IBM", quarter="2024Q1")
+
+    assert isinstance(result, str), "API should return JSON data as string"
+
+    data = json.loads(result)
+
+    assert "symbol" in data, "JSON should contain 'symbol' field"
+    assert "quarter" in data, "JSON should contain 'quarter' field"
+    assert "transcript" in data, "JSON should contain 'transcript' field"
+
+    assert data["symbol"] == "IBM", "Should find IBM data in the response"
+    assert data["transcript"], "Transcript should not be empty"
+
+    first_entry = data["transcript"][0]
+    required_fields = ["speaker", "title", "content", "sentiment"]
+    for field in required_fields:
+        assert field in first_entry, f"Field '{field}' missing from transcript entry"
+
+    assert first_entry["content"], "Transcript content should not be empty"
 
 @pytest.mark.asyncio
 async def test_fetch_earnings_calendar():
@@ -22,7 +46,7 @@ async def test_fetch_earnings_calendar():
     rows = list(csv_reader)
 
     # Basic validation of structure
-    assert len(rows) > 0, "CSV should contain at least one row"
+    assert rows, "CSV should contain at least one row"
 
     # Check required fields in first row
     first_row = rows[0]
@@ -32,4 +56,4 @@ async def test_fetch_earnings_calendar():
 
     # Check if we found AAPL data
     apple_entries = [row for row in rows if row["symbol"] == "AAPL"]
-    assert len(apple_entries) > 0, "Should find AAPL entries in the response"
+    assert apple_entries, "Should find AAPL entries in the response"

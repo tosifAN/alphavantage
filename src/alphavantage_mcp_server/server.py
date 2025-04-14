@@ -117,7 +117,7 @@ from alphavantage_mcp_server.api import (
     fetch_ht_dcperiod,
     fetch_ht_dcphase,
     fetch_ht_phasor,
-    fetch_vwap, fetch_earnings,
+    fetch_vwap, fetch_earnings, fetch_earnings_call_transcript,
 )
 
 
@@ -150,6 +150,7 @@ class AlphavantageTools(str, Enum):
     COMPANY_EARNINGS = "company_earnings"
     LISTING_STATUS = "listing_status"
     EARNINGS_CALENDAR = "earnings_calendar"
+    EARNINGS_CALL_TRANSCRIPT = "earnings_call_transcript"
     IPO_CALENDAR = "ipo_calendar"
     EXCHANGE_RATE = "exchange_rate"
     FX_INTRADAY = "fx_intraday"
@@ -470,6 +471,18 @@ async def list_prompts() -> list[types.Prompt]:
             name=AlphavantageTools.EARNINGS_CALENDAR.value,
             description="Fetch company earnings calendar",
             arguments=[],
+        ),
+        types.Prompt(
+          name=AlphavantageTools.EARNINGS_CALL_TRANSCRIPT.value,
+            description="Fetch earnings call transcript",
+            arguments=[
+                types.PromptArgument(
+                    name="symbol", description="Stock symbol", required=True
+                ),
+                types.PromptArgument(
+                    name="quarter", description="Fiscal quarket in the format YYYYQM", required=True
+                ),
+            ],
         ),
         types.Prompt(
             name=AlphavantageTools.IPO_CALENDAR.value,
@@ -1837,6 +1850,21 @@ async def get_prompt(
                 )
             ],
         )
+    if name == AlphavantageTools.EARNINGS_CALL_TRANSCRIPT.value:
+        symbol = arguments.get("symbol") if arguments else ""
+        quarter = arguments.get("quarter") if arguments else "2024Q1"
+        return types.GetPromptResult(
+            messages=[
+                types.PromptMessage(
+                    role="user",
+                    content=types.TextContent(
+                        type="text",
+                        text=f"Fetch the earnings call transcript for the {symbol} for the quarter {quarter}",
+                    ),
+                )
+            ],
+        )
+
     if name == AlphavantageTools.IPO_CALENDAR.value:
         return types.GetPromptResult(
             messages=[
@@ -2354,6 +2382,18 @@ async def handle_list_tools() -> list[types.Tool]:
                     "symbol": {"type": "string"}
                 },
                 "required": ["symbol"],
+            },
+        ),
+        types.Tool(
+            name=AlphavantageTools.EARNINGS_CALL_TRANSCRIPT.value,
+            description="Fetch the earnings call transcript for a given company in a specific quarter",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "symbol": {"type": "string"},
+                    "quarter": {"type": "string"},
+                },
+                "required": ["symbol", "quarter"],
             },
         ),
         types.Tool(
@@ -3855,7 +3895,12 @@ async def handle_call_tool(
                 horizon = arguments.get("horizon")
 
                 result = await fetch_earnings_calendar(symbol, horizon)
-                print(f"Result: {result}")
+
+            case AlphavantageTools.EARNINGS_CALL_TRANSCRIPT.value:
+                symbol = arguments.get("symbol")
+                quarter = arguments.get("quarter")
+
+                result = await fetch_earnings_call_transcript(symbol, quarter)
 
             case AlphavantageTools.IPO_CALENDAR.value:
                 result = await fetch_ipo_calendar()
