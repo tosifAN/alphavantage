@@ -1,8 +1,8 @@
-# Alphavantage MCP Server
+# ✅ Official Alpha Vantage MCP Server
 
 [![smithery badge](https://smithery.ai/badge/alphavantage)](https://smithery.ai/server/alphavantage)
 
-A MCP server for the stock market data API, Alphavantage API.
+A MCP server for the stock market data API, Alphavantage API. 
 
 ## Configuration
 
