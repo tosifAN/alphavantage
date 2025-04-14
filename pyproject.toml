@@ -24,7 +24,13 @@ packages = ["src/alphavantage_mcp_server"]
 
 [dependency-groups]
 dev = [
+    "pytest-asyncio>=0.26.0",
     "ruff>=0.9.9",
+]
+
+[tool.pytest.ini_options]
+markers = [
+    "asyncio",
 ]
 
 [project.scripts]

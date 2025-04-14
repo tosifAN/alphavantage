@@ -3853,7 +3853,9 @@ async def handle_call_tool(
             case AlphavantageTools.EARNINGS_CALENDAR.value:
                 symbol = arguments.get("symbol")
                 horizon = arguments.get("horizon")
+
                 result = await fetch_earnings_calendar(symbol, horizon)
+                print(f"Result: {result}")
 
             case AlphavantageTools.IPO_CALENDAR.value:
                 result = await fetch_ipo_calendar()

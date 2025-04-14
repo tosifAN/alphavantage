@@ -680,26 +680,28 @@ async def fetch_listing_status(
 
 async def fetch_earnings_calendar(
     symbol: str, horizon: str = "3month"
-) -> dict[str, str]:
+) -> str:
     """
-    Fetch company earning calendar data from the Alpha Vantage API.
+    Fetch companies earnings calendar data from the Alpha Vantage API.
 
     :argument: symbol (str): The stock symbol to fetch.
     :argument: horizon (str): The earning calendar horizon (default: "3month").
 
-    :returns: The company earning calendar data.
+    :returns: The company earning calendar data using CSV format
     """
 
     https_params = {
         "function": "EARNINGS_CALENDAR",
-        "symbol": symbol,
         "horizon": horizon,
         "apikey": API_KEY,
     }
+    if symbol:
+        https_params["symbol"] = symbol
+
     async with httpx.AsyncClient() as client:
         response = await client.get(API_BASE_URL, params=https_params)
         response.raise_for_status()
-        return response.json()
+        return response.text
 
 
 async def fetch_ipo_calendar() -> str:
