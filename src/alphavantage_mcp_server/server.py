@@ -445,7 +445,7 @@ async def list_prompts() -> list[types.Prompt]:
         ),
         types.Prompt(
             name=AlphavantageTools.COMPANY_OVERVIEW.value,
-            description="Fetch company overview",
+            description="Fetch the company information, financial ratios, and other key metrics for the equity specified",
             arguments=[
                 types.PromptArgument(
                     name="symbol", description="Stock symbol", required=True
@@ -512,6 +512,15 @@ async def list_prompts() -> list[types.Prompt]:
             arguments=[],
         ),
         types.Prompt(
+            name=AlphavantageTools.COMPANY_EARNINGS.value,
+            description="This API returns the annual and quarterly earnings (EPS) for the company of interest.",
+            arguments=[
+                types.PromptArgument(
+                    name="symbol", description="Stock symbol", required=True
+                )
+            ],
+        ),
+        types.Prompt(
             name=AlphavantageTools.EARNINGS_CALENDAR.value,
             description="Fetch company earnings calendar",
             arguments=[],
@@ -538,7 +547,10 @@ async def list_prompts() -> list[types.Prompt]:
             description="Fetch exchange rate",
             arguments=[
                 types.PromptArgument(
-                    name="from_currency", description="From currency", required=True
+                    name="from_currency", description="The currency you would like to get the exchange rate for.", required=True
+                ),
+                types.PromptArgument(
+                    name="to_currency", description="The destination currency for the exchange rate", required=True
                 )
             ],
         ),
@@ -580,10 +592,23 @@ async def list_prompts() -> list[types.Prompt]:
         ),
         types.Prompt(
             name=AlphavantageTools.CRYPTO_INTRADAY.value,
-            description="Fetch crypto intraday",
+            description="Fetch intraday time series (timestamp, open, high, low, close, volume) of the cryptocurrency specified",
             arguments=[
                 types.PromptArgument(
-                    name="symbol", description="Crypto symbol", required=True
+                    name="symbol", description="The digital/crypto currency", required=True
+                ),
+                types.PromptArgument(
+                    name="market", description="The exchange market of your choice", required=True
+                ),
+                types.PromptArgument(
+                    name="interval", description="Time interval between two consecutive data points in the time series. "
+                                                 "The following values are supported: 1min, 5min, 15min, 30min, 60min", required=True
+                ),
+                types.PromptArgument(
+                    name="datatype", description="Data type (json or csv). Default is json", required=False
+                ),
+                types.PromptArgument(
+                    name="outputsize", description="Output size (compact or full)", required=False
                 )
             ],
         ),
@@ -715,37 +740,51 @@ async def list_prompts() -> list[types.Prompt]:
         ),
         types.Prompt(
             name=AlphavantageTools.SMA.value,
-            description="Fetch simple moving average",
+            description="Fetch the simple moving average (SMA) values",
             arguments=[
                 types.PromptArgument(
                     name="symbol", description="Stock symbol", required=True
                 ),
                 types.PromptArgument(
-                    name="interval", description="Interval", required=True
+                    name="interval", description="Time interval between two consecutive data points in the time series. "
+                                                 "The following values are supported: 1min, 5min, 15min, 30min, 60min, daily, weekly, monthly", required=True
                 ),
                 types.PromptArgument(
-                    name="time_period", description="Time period", required=True
+                    name="month", description="ONLY applicable to intraday intervals (1min, 5min, 15min, 30min, and 60min) for the equity markets.  For example, month=2009-01", required=False
                 ),
                 types.PromptArgument(
-                    name="series_type", description="Series type", required=True
+                    name="time_period", description="Number of data points used to calculate each moving average value. E.g, time_period=60", required=True
+                ),
+                types.PromptArgument(
+                    name="series_type", description="The desired price type in the time series. Four types are supported: close, open, high, low", required=True
+                ),
+                types.PromptArgument(
+                    name="datatype", description="Data type (json or csv). Default is json", required=False
                 ),
             ],
         ),
         types.Prompt(
             name=AlphavantageTools.EMA.value,
-            description="Fetch exponential moving average",
+            description="Fetch the exponential moving average (EMA) values",
             arguments=[
                 types.PromptArgument(
                     name="symbol", description="Stock symbol", required=True
                 ),
                 types.PromptArgument(
-                    name="interval", description="Interval", required=True
+                    name="interval", description="Time interval between two consecutive data points in the time series. "
+                                                 "The following values are supported: 1min, 5min, 15min, 30min, 60min, daily, weekly, monthly", required=True
                 ),
                 types.PromptArgument(
-                    name="time_period", description="Time period", required=True
+                    name="month", description="ONLY applicable to intraday intervals (1min, 5min, 15min, 30min, and 60min) for the equity markets.  For example, month=2009-01", required=False
                 ),
                 types.PromptArgument(
-                    name="series_type", description="Series type", required=True
+                    name="time_period", description="Number of data points used to calculate each moving average value. E.g, time_period=60", required=True
+                ),
+                types.PromptArgument(
+                    name="series_type", description="The desired price type in the time series. Four types are supported: close, open, high, low", required=True
+                ),
+                types.PromptArgument(
+                    name="datatype", description="Data type (json or csv). Default is json", required=False
                 ),
             ],
         ),
