@@ -28,10 +28,5 @@ dev = [
     "ruff>=0.9.9",
 ]
 
-[tool.pytest.ini_options]
-markers = [
-    "asyncio",
-]
-
 [project.scripts]
 alphavantage = "alphavantage_mcp_server:main"

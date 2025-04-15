@@ -245,22 +245,31 @@ async def list_prompts() -> list[types.Prompt]:
     return [
         types.Prompt(
             name=AlphavantageTools.STOCK_QUOTE.value,
-            description="Fetch a stock quote",
+            description="Fetch the latest price and volume information for a ticker of your choice",
             arguments=[
                 types.PromptArgument(
                     name="symbol",
                     description="Stock symbol",
                     required=True,
-                )
+                ),
+                types.PromptArgument(
+                    name="datatype",
+                    description="Data type (json or csv). Default is json",
+                    required=False,
+                ),
+
             ],
         ),
         types.Prompt(
             name=AlphavantageTools.TIME_SERIES_INTRADAY.value,
-            description="Fetch a time series intraday",
+            description="Fetch current and 20+ years of historical intraday OHLCV time series of the equity specified",
             arguments=[
                 types.PromptArgument(
                     name="symbol", description="Stock symbol", required=True
-                )
+                ),
+                types.PromptArgument(
+                    name="interval", description="Interval", required=True
+                ),
             ],
         ),
         types.Prompt(
@@ -278,7 +287,17 @@ async def list_prompts() -> list[types.Prompt]:
             arguments=[
                 types.PromptArgument(
                     name="symbol", description="Stock symbol", required=True
-                )
+                ),
+                types.PromptArgument(
+                    name="outputsize",
+                    description="Output size (compact or full)",
+                    required=False,
+                ),
+            types.PromptArgument(
+                    name="datatype",
+                    description="Data type (json or csv). Default is json",
+                    required=False,
+                ),
             ],
         ),
         types.Prompt(
@@ -351,11 +370,21 @@ async def list_prompts() -> list[types.Prompt]:
         ),
         types.Prompt(
             name=AlphavantageTools.HISTORICAL_OPTIONS.value,
-            description="Fetch historical options",
+            description="Fetch the full historical options chain for a specific symbol on a specific date, covering 15+ years of history",
             arguments=[
                 types.PromptArgument(
                     name="symbol", description="Stock symbol", required=True
-                )
+                ),
+                types.PromptArgument(
+                    name="date",
+                    description="Trading session date (YYYY-MM-DD). or example, date=2017-11-15",
+                    required=True,
+                ),
+                types.PromptArgument(
+                    name="datatype",
+                    description="Data type (json or csv). Default is json",
+                    required=True,
+                ),
             ],
         ),
         types.Prompt(
@@ -363,8 +392,23 @@ async def list_prompts() -> list[types.Prompt]:
             description="Fetch news sentiment",
             arguments=[
                 types.PromptArgument(
-                    name="tickers", description="Stock tickers", required=True
-                )
+                    name="tickers", description="Stock tickers", required=False
+                ),
+                types.PromptArgument(
+                    name="options", description="The news topics of your choice", required=False
+                ),
+                types.PromptArgument(
+                    name="time_from", description="The time range of the news articles you are targeting, time_from=20220410T0130.", required=False
+                ),
+                types.PromptArgument(
+                    name="time_to", description="The time range of the news articles you are targeting. time_to=20230410T0130", required=False
+                ),
+                types.PromptArgument(
+                    name="sort", description="Sort by (latest or oldest). Default sort=LATEST", required=False
+                ),
+                types.PromptArgument(
+                    name="limit", description="Limit the number of news articles returned. Default=50", required=False
+                ),
             ],
         ),
         types.Prompt(
@@ -3660,6 +3704,7 @@ async def handle_call_tool(
 
                 datatype = arguments.get("datatype", "json")
                 result = await fetch_quote(symbol, datatype)
+
             case AlphavantageTools.TIME_SERIES_INTRADAY.value:
                 symbol = arguments.get("symbol")
                 interval = arguments.get("interval")

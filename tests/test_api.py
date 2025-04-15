@@ -11,11 +11,10 @@ from alphavantage_mcp_server.api import fetch_earnings_calendar, fetch_earnings_
 @pytest.mark.asyncio
 async def test_fetch_earnings_call_transcript():
     """Test fetching earnings call transcript with real API call."""
-    result = await fetch_earnings_call_transcript(symbol="IBM", quarter="2024Q1")
+    data = await fetch_earnings_call_transcript(symbol="IBM", quarter="2024Q1")
 
-    assert isinstance(result, str), "API should return JSON data as string"
+    assert isinstance(data, dict), "API should return JSON data as string"
 
-    data = json.loads(result)
 
     assert "symbol" in data, "JSON should contain 'symbol' field"
     assert "quarter" in data, "JSON should contain 'quarter' field"
