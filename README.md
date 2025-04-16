@@ -41,6 +41,13 @@ Add this to your `claude_desktop_config.json`:
 }
 ```
 
+## 📺 Demo Video
+
+Watch a quick demonstration of the Alpha Vantage MCP Server in action:
+
+[![Alpha Vantage MCP Server Demo](https://github.com/user-attachments/assets/bc9ecffb-eab6-4a4d-bbf6-9fc8178f15c3)](https://github.com/user-attachments/assets/bc9ecffb-eab6-4a4d-bbf6-9fc8178f15c3)
+
+
 ## 🤝 Contributing
 
 We welcome contributions from the community! To get started, check out our [contribution](CONTRIBUTING.md) guide for setup instructions, 
