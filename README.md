@@ -1,8 +1,7 @@
-[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/calvernaz-alphavantage-badge.png)](https://mseep.ai/app/calvernaz-alphavantage)
-
 # ✅ Official Alpha Vantage MCP Server
 
 [![smithery badge](https://smithery.ai/badge/@calvernaz/alphavantage)](https://smithery.ai/server/@calvernaz/alphavantage)
+[![Verified on MseeP](https://mseep.ai/badge.svg)](https://mseep.ai/app/b76d0966-edd1-46fd-9cfb-b29a6d8cb563)
 
 A MCP server for the stock market data API, Alphavantage API. 
 
