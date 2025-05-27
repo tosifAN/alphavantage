@@ -41,8 +41,6 @@ Deprecated
 dirtyjson
 distro
 einops
-en_core_web_lg
-en_core_web_md
 entrypoints
 executing
 fastapi
